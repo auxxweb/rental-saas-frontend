@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import { format } from 'date-fns'
 import Link from 'next/link'
 import jsPDF from 'jspdf'
-import 'jspdf-autotable'
+import autoTable from 'jspdf-autotable'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 
@@ -98,7 +98,7 @@ export default function JobDetailPage() {
       `$${item.subtotal.toFixed(2)}`
     ])
 
-    doc.autoTable({
+    autoTable(doc, {
       startY: 85,
       head: [['Product', 'Qty', 'Mode', 'Rate', 'Duration', 'Subtotal']],
       body: tableData,
@@ -107,7 +107,7 @@ export default function JobDetailPage() {
     })
 
     // Totals
-    const finalY = (doc as any).lastAutoTable.finalY + 10
+    const finalY = (doc.lastAutoTable?.finalY ?? 85) + 10
     doc.setFontSize(10)
     doc.text(`Subtotal: $${invoice.subtotal.toFixed(2)}`, 150, finalY, { align: 'right' })
     doc.text(`Tax: $${invoice.tax.toFixed(2)}`, 150, finalY + 7, { align: 'right' })
@@ -115,7 +115,7 @@ export default function JobDetailPage() {
       doc.text(`Extra Charges: $${invoice.extraCharges.toFixed(2)}`, 150, finalY + 14, { align: 'right' })
     }
     doc.setFontSize(12)
-    doc.setFont(undefined, 'bold')
+    doc.setFont('helvetica', 'bold')
     doc.text(`Total: $${invoice.total.toFixed(2)}`, 150, finalY + 21, { align: 'right' })
 
     doc.save(`invoice-${invoice.invoiceNumber}.pdf`)

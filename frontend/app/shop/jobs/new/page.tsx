@@ -94,11 +94,12 @@ export default function NewJobPage() {
         item.subtotal = calculateSubtotal(item.rate, item.duration.value, item.pricingMode) * item.quantity
       }
     } else if (field === 'pricingMode') {
-      item.pricingMode = value
+      const pricingMode = value as 'hourly' | 'daily' | 'monthly'
+      item.pricingMode = pricingMode
       const product = products.find(p => p._id === item.product)
-      if (product) {
-        item.rate = product.pricing[value] || 0
-        item.subtotal = calculateSubtotal(item.rate, item.duration.value, value) * item.quantity
+      if (product && (pricingMode === 'hourly' || pricingMode === 'daily' || pricingMode === 'monthly')) {
+        item.rate = product.pricing[pricingMode] || 0
+        item.subtotal = calculateSubtotal(item.rate, item.duration.value, pricingMode) * item.quantity
       }
     } else if (field === 'quantity') {
       item.quantity = parseInt(value) || 1
