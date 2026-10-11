@@ -1,0 +1,545 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+[data-theme='light'] {
+  /* Brand accent (lime / neon green) */
+  --accent: #9AE66E;
+  --accent-2: #C6F76F;
+  --accent-ink: #0B1220;
+
+  /* Base surfaces */
+  --bg-primary: #F6F7F9;
+  --bg-secondary: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-2: #F9FAFB;
+
+  /* Sidebar */
+  --sidebar-bg: #0F172A;
+  --sidebar-surface: rgba(255, 255, 255, 0.06);
+  --sidebar-text: rgba(255, 255, 255, 0.92);
+  --sidebar-muted: rgba(255, 255, 255, 0.62);
+
+  /* Text */
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+
+  /* Borders & shadows */
+  --border: rgba(17, 24, 39, 0.10);
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.06);
+  --shadow-md: 0 8px 24px rgba(17, 24, 39, 0.10);
+
+  /* Status */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+  /* Radii */
+  --radius-md: 14px;
+  --radius-lg: 16px;
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --accent: #9AE66E;
+  --accent-2: #C6F76F;
+  --accent-ink: #071015;
+
+  /* Spec-compliant dark theme (no pure black) */
+  --bg-primary: #0B1220;
+  --bg-secondary: #0F172A;
+  --surface: #111827;
+  --surface-2: rgba(255, 255, 255, 0.06);
+
+  --sidebar-bg: #0F172A;
+  --sidebar-surface: rgba(255, 255, 255, 0.06);
+  --sidebar-text: rgba(255, 255, 255, 0.92);
+  --sidebar-muted: rgba(255, 255, 255, 0.62);
+
+  --text-primary: #E5E7EB;
+  --text-secondary: #9CA3AF;
+  --text-tertiary: rgba(229, 231, 235, 0.55);
+
+  --border: #1F2933;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(1200px 600px at 20% -10%, rgba(154, 230, 110, 0.22), transparent 60%),
+    radial-gradient(900px 500px at 110% 20%, rgba(198, 247, 111, 0.18), transparent 55%);
+  background-attachment: fixed;
+}
+
+[data-theme='dark'] body {
+  /* Subtle dark mode gradient: navy to deep green tint for depth */
+  background-image:
+    radial-gradient(1400px 700px at 15% -5%, rgba(11, 18, 32, 0.95) 0%, rgba(15, 23, 42, 0.98) 30%, transparent 70%),
+    radial-gradient(1000px 600px at 85% 15%, rgba(15, 23, 42, 0.92) 0%, rgba(11, 18, 32, 0.95) 40%, transparent 65%),
+    linear-gradient(135deg, rgba(11, 18, 32, 0.98) 0%, rgba(15, 23, 42, 1) 50%, rgba(11, 18, 32, 0.98) 100%);
+  background-attachment: fixed;
+}
+
+/* Smooth but subtle transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 160ms;
+}
+
+/* Dropdown/Select hover and selected states - Theme accent color */
+select option {
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+select option:hover {
+  background-color: rgba(154, 230, 110, 0.15);
+}
+
+select option:checked,
+select option:focus {
+  background-color: rgba(154, 230, 110, 0.25);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* For browsers that support :checked on option */
+select:focus option:checked {
+  background: linear-gradient(135deg, rgba(154, 230, 110, 0.2), rgba(198, 247, 111, 0.2));
+  color: var(--text-primary);
+}
+
+/* Select dropdown styling */
+select {
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+select:hover {
+  border-color: var(--accent);
+}
+
+select:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(154, 230, 110, 0.2);
+}
+
+@layer utilities {
+  /* Side menu: no visible scrollbar; content still scrolls with wheel/touch */
+  .sidebar-nav-no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .sidebar-nav-no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Command-center admin shell — matches the dark lime reference */
+.admin-shell {
+  --accent: #c8f542;
+  --accent-2: #d8ff6e;
+  --accent-ink: #10140f;
+  --accent-foreground: #10140f;
+  --accent-dark: #b0dc32;
+  --bg-primary: #070908;
+  --bg-secondary: #101412;
+  --surface: #1c211e;
+  --surface-2: #242a26;
+  --field: #101412;
+  --paper: #f1f2ec;
+  --paper-ink: #171a16;
+  --paper-muted: #5c665e;
+  --text-primary: #f4f6f2;
+  --text-secondary: #9aa39b;
+  --text-tertiary: #6e776f;
+  --border: rgba(255, 255, 255, 0.08);
+  --sidebar-bg: #101412;
+  --sidebar-surface: rgba(255, 255, 255, 0.06);
+  --sidebar-text: #f4f6f2;
+  --sidebar-muted: #9aa39b;
+  --nav-capsule: #121614;
+  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 16px 40px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 22px 60px rgba(0, 0, 0, 0.45);
+  --radius-md: 20px;
+  --radius-lg: 22px;
+  --success: #c8f542;
+  --warning: #e8a23a;
+  --error: #f07167;
+  color: var(--text-primary);
+  color-scheme: dark;
+  background-color: #070908;
+  background-image:
+    radial-gradient(980px 460px at -8% -10%, rgba(140, 196, 64, 0.22), transparent 58%),
+    radial-gradient(860px 520px at 108% -8%, rgba(92, 168, 72, 0.18), transparent 52%),
+    radial-gradient(760px 520px at 110% 110%, rgba(74, 148, 64, 0.16), transparent 56%),
+    radial-gradient(680px 440px at -10% 108%, rgba(88, 160, 70, 0.14), transparent 54%);
+  background-attachment: fixed;
+  font-family: 'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+[data-theme='light'] .admin-shell {
+  --accent-ink: #10140f;
+  --accent-foreground: #10140f;
+  --bg-primary: #e6ebe3;
+  --bg-secondary: #f4f6f1;
+  --surface: #f7f8f4;
+  --surface-2: #eef1ea;
+  --field: #ffffff;
+  --text-primary: #141814;
+  --text-secondary: #5c665e;
+  --text-tertiary: #7b857c;
+  --border: rgba(20, 24, 20, 0.08);
+  --nav-capsule: #f7f8f4;
+  --shadow-sm: 0 10px 30px rgba(20, 24, 20, 0.06);
+  --shadow-md: 0 18px 40px rgba(20, 24, 20, 0.1);
+  color-scheme: light;
+  background-color: #e4e8e0;
+  background-image:
+    radial-gradient(900px 420px at 0% 0%, rgba(200, 245, 66, 0.35), transparent 55%),
+    radial-gradient(800px 480px at 100% 100%, rgba(180, 220, 80, 0.28), transparent 55%);
+}
+
+/* Lime text disappears on the light surfaces. Keep fills lime; darken text-only accent. */
+[data-theme='light'] .admin-shell .text-\[var\(--accent\)\] {
+  color: #3a6212 !important;
+}
+
+[data-theme='light'] .admin-shell .bg-\[var\(--accent\)\] {
+  color: #10140f !important;
+  box-shadow: inset 0 0 0 1px rgba(16, 32, 8, 0.22);
+}
+
+.admin-shell .panel-card {
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 22px;
+  box-shadow: none;
+}
+
+[data-theme='light'] .admin-shell .panel-card {
+  border-color: rgba(20, 24, 20, 0.06);
+  box-shadow: 0 10px 28px rgba(20, 24, 20, 0.05);
+}
+
+.admin-shell .panel-card .admin-stat-icon > * {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+}
+
+.admin-shell .panel-card .admin-stat-icon svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.admin-shell .due-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 108px;
+  padding: 18px 18px 18px 22px;
+  border-radius: 28px;
+  background-color: #c6ef4a;
+  background-image: radial-gradient(rgba(20, 24, 16, 0.14) 0.6px, transparent 0.7px);
+  background-size: 4px 4px;
+  color: #141814;
+}
+
+.admin-shell .due-bar .due-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #141814;
+}
+
+.admin-shell .due-bar .due-figure {
+  margin-top: 4px;
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  color: #141814;
+}
+
+.admin-shell .due-bar .due-trend {
+  margin-top: 8px;
+  display: inline-flex;
+  border-radius: 999px;
+  background: #141814;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+}
+
+.admin-shell .due-bar .admin-stat-icon > * {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.38) !important;
+  color: #141814 !important;
+}
+
+.admin-shell .due-bar .admin-stat-icon svg {
+  width: 18px !important;
+  height: 18px !important;
+  color: #141814 !important;
+}
+
+.admin-shell .alert-board {
+  --text-primary: #1a1d18;
+  --text-secondary: #8b9088;
+  background-color: #e8eae4;
+  background-image: radial-gradient(rgba(20, 24, 16, 0.16) 0.55px, transparent 0.65px);
+  background-size: 3px 3px;
+  color: #1a1d18;
+  border-radius: 28px;
+  padding: 22px 18px 8px;
+  box-shadow: none;
+}
+
+.admin-shell .alert-board h2 {
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  color: #1a1d18;
+}
+
+.admin-shell .alert-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 6px;
+  border-top: 1px solid rgba(26, 29, 24, 0.1);
+}
+
+.admin-shell .alert-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: #2a2e2b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.admin-shell .alert-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.admin-shell .alert-copy strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1d18;
+}
+
+.admin-shell .alert-copy span {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: #8d928a;
+}
+
+.admin-shell .alert-value {
+  font-size: 15px;
+  font-weight: 650;
+  color: #1a1d18;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-shell .graph-card {
+  --text-primary: #1a1d18;
+  --text-secondary: #6d736b;
+  --border: rgba(26, 29, 24, 0.12);
+  --surface: #f3f4ef;
+  --surface-2: rgba(26, 29, 24, 0.05);
+  background-color: #e8eae4;
+  background-image: radial-gradient(rgba(20, 24, 16, 0.16) 0.55px, transparent 0.65px);
+  background-size: 3px 3px;
+  color: #1a1d18;
+  border-radius: 28px;
+  padding: 22px 20px 12px;
+  box-shadow: none;
+}
+
+.admin-shell .graph-card h2 {
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  color: #1a1d18;
+}
+
+.admin-shell .graph-card p {
+  color: #6d736b;
+}
+
+.admin-shell .nav-capsule {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--nav-capsule);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.admin-shell .nav-capsule::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-shell .nav-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.admin-shell .nav-pill:hover {
+  color: var(--text-primary);
+}
+
+.admin-shell .nav-pill[data-active='true'] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.admin-shell .command-search {
+  height: 42px;
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  padding: 0 16px 0 40px;
+  font-size: 13px;
+}
+
+.admin-shell .command-search::placeholder {
+  color: var(--text-tertiary);
+}
+
+.admin-shell .command-search:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.admin-shell .icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  width: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.admin-shell .icon-btn:hover {
+  color: var(--text-primary);
+}
+
+.admin-shell .command-paper {
+  --text-primary: #171a16;
+  --text-secondary: #5c665e;
+  --text-tertiary: #7b857c;
+  --surface: #f1f2ec;
+  --surface-2: rgba(23, 26, 22, 0.05);
+  --border: rgba(23, 26, 22, 0.08);
+  --field: #ffffff;
+  background: var(--paper);
+  color: var(--paper-ink);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.admin-shell .amount-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-radius: 22px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 16px 16px 16px 22px;
+}
+
+.admin-shell input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='file']),
+.admin-shell select,
+.admin-shell textarea {
+  background-color: var(--field);
+  color: var(--text-primary);
+  border-color: var(--border);
+  border-radius: 16px;
+}
+
+.admin-shell input::placeholder,
+.admin-shell textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* Older screens still use light Tailwind grays. Remap them inside the shell. */
+.admin-shell :is(.bg-white, .bg-gray-50, .bg-gray-100, .bg-gray-50\/50) {
+  background-color: var(--surface) !important;
+}
+
+.admin-shell :is(.text-gray-900, .text-gray-800) {
+  color: var(--text-primary) !important;
+}
+
+.admin-shell :is(.text-gray-700, .text-gray-600, .text-gray-500) {
+  color: var(--text-secondary) !important;
+}
+
+.admin-shell :is(.border-gray-200, .border-gray-300, .border-gray-100) {
+  border-color: var(--border) !important;
+}
+
+.admin-shell :is(.bg-gray-800, .bg-gray-900) {
+  background-color: var(--accent) !important;
+  color: var(--accent-ink) !important;
+}
+
+.admin-shell :is(.hover\:bg-gray-50:hover, .hover\:bg-gray-100:hover, .hover\:bg-white:hover) {
+  background-color: var(--surface-2) !important;
+}

@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+[data-theme='light'] {
+  /* Brand accent (lime / neon green) */
+  --accent: #9AE66E;
+  --accent-2: #C6F76F;
+  --accent-ink: #0B1220;
+
+  /* Base surfaces */
+  --bg-primary: #F6F7F9;
+  --bg-secondary: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-2: #F9FAFB;
+
+  /* Sidebar */
+  --sidebar-bg: #0F172A;
+  --sidebar-surface: rgba(255, 255, 255, 0.06);
+  --sidebar-text: rgba(255, 255, 255, 0.92);
+  --sidebar-muted: rgba(255, 255, 255, 0.62);
+
+  /* Text */
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+
+  /* Borders & shadows */
+  --border: rgba(17, 24, 39, 0.10);
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.06);
+  --shadow-md: 0 8px 24px rgba(17, 24, 39, 0.10);
+
+  /* Status */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+  /* Radii */
+  --radius-md: 14px;
+  --radius-lg: 16px;
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --accent: #9AE66E;
+  --accent-2: #C6F76F;
+  --accent-ink: #071015;
+
+  /* Spec-compliant dark theme (no pure black) */
+  --bg-primary: #0B1220;
+  --bg-secondary: #0F172A;
+  --surface: #111827;
+  --surface-2: rgba(255, 255, 255, 0.06);
+
+  --sidebar-bg: #0F172A;
+  --sidebar-surface: rgba(255, 255, 255, 0.06);
+  --sidebar-text: rgba(255, 255, 255, 0.92);
+  --sidebar-muted: rgba(255, 255, 255, 0.62);
+
+  --text-primary: #E5E7EB;
+  --text-secondary: #9CA3AF;
+  --text-tertiary: rgba(229, 231, 235, 0.55);
+
+  --border: #1F2933;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(1200px 600px at 20% -10%, rgba(154, 230, 110, 0.22), transparent 60%),
+    radial-gradient(900px 500px at 110% 20%, rgba(198, 247, 111, 0.18), transparent 55%);
+  background-attachment: fixed;
+}
+
+[data-theme='dark'] body {
+  /* Subtle dark mode gradient: navy to deep green tint for depth */
+  background-image:
+    radial-gradient(1400px 700px at 15% -5%, rgba(11, 18, 32, 0.95) 0%, rgba(15, 23, 42, 0.98) 30%, transparent 70%),
+    radial-gradient(1000px 600px at 85% 15%, rgba(15, 23, 42, 0.92) 0%, rgba(11, 18, 32, 0.95) 40%, transparent 65%),
+    linear-gradient(135deg, rgba(11, 18, 32, 0.98) 0%, rgba(15, 23, 42, 1) 50%, rgba(11, 18, 32, 0.98) 100%);
+  background-attachment: fixed;
+}
+
+/* Smooth but subtle transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 160ms;
+}
+
+/* Dropdown/Select hover and selected states - Theme accent color */
+select option {
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+select option:hover {
+  background-color: rgba(154, 230, 110, 0.15);
+}
+
+select option:checked,
+select option:focus {
+  background-color: rgba(154, 230, 110, 0.25);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* For browsers that support :checked on option */
+select:focus option:checked {
+  background: linear-gradient(135deg, rgba(154, 230, 110, 0.2), rgba(198, 247, 111, 0.2));
+  color: var(--text-primary);
+}
+
+/* Select dropdown styling */
+select {
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
+select:hover {
+  border-color: var(--accent);
+}
+
+select:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(154, 230, 110, 0.2);
+}
+
+@layer utilities {
+  /* Side menu: no visible scrollbar; content still scrolls with wheel/touch */
+  .sidebar-nav-no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .sidebar-nav-no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

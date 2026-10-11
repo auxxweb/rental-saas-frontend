@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="R">
+  <defs>
+    <linearGradient id="rental-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9AE66E" />
+      <stop offset="100%" stop-color="#C6F76F" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#rental-accent)" />
+  <text
+    x="256"
+    y="256"
+    dominant-baseline="central"
+    text-anchor="middle"
+    font-family="system-ui, -apple-system, 'Segoe UI', Inter, sans-serif"
+    font-size="300"
+    font-weight="700"
+    fill="#0B1220"
+  >R</text>
+</svg>
